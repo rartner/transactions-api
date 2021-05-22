@@ -8,10 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
-public class Account {
+@Data
+public class Account extends AuditableEntity {
 
 	@Id
 	@GeneratedValue

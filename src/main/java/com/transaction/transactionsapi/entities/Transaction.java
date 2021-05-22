@@ -11,12 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import com.transaction.transactionsapi.enums.OperationType;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-public class Transaction {
+public class Transaction extends AuditableEntity {
 
 	@Id
 	@GeneratedValue

@@ -1,6 +1,6 @@
 package com.transaction.transactionsapi.controllers;
 
-import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -18,6 +18,6 @@ public class StatusControllerTest extends SpringControllerTest {
 	public void givenStatusRequestWhenServerIsRunningThenReturnOK() throws Exception {
 		mock.perform( get( "/status" ) )
 				.andExpect( status().isOk() )
-				.andExpect( content().string( containsString( "OK" ) ));
+				.andExpect( content().string( is( "OK" ) ));
 	}
 }

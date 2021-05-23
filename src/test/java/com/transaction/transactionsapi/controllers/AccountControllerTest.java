@@ -31,7 +31,7 @@ public class AccountControllerTest extends SpringControllerTest {
 
 	@Test
 	@Order(1)
-	public void setup() throws Exception {
+	public void givenValidRequestWhenCreatingAccountThenSuccess() throws Exception {
 		mockMvc.perform( post( BASE_PATH )
 				.contentType( MediaType.APPLICATION_JSON )
 				.content( new ObjectMapper().writeValueAsBytes( getAccountRequestDTO() ) ) )
@@ -42,7 +42,7 @@ public class AccountControllerTest extends SpringControllerTest {
 
 	@Test
 	@Order(2)
-	public void asdfasd() throws Exception {
+	public void givenAlreadyRegisteredDocumentWhenCreatingAccountThenReturnUnprocessableEntity() throws Exception {
 		mockMvc.perform( post( BASE_PATH ).contentType( MediaType.APPLICATION_JSON )
 				.content( new ObjectMapper().writeValueAsString( getAccountRequestDTO() ) ) )
 				.andExpect( status().isUnprocessableEntity() )
@@ -52,7 +52,7 @@ public class AccountControllerTest extends SpringControllerTest {
 
 	@Test
 	@Order(3)
-	public void adfads() throws Exception {
+	public void givenInvalidDTOWhenCreatingAccountThenReturnErrorWithMessages() throws Exception {
 		mockMvc.perform( post( BASE_PATH ).contentType( MediaType.APPLICATION_JSON )
 				.content( "{}" ) )
 				.andExpect( status().isBadRequest() )

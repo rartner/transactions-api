@@ -1,5 +1,7 @@
 package com.transaction.transactionsapi.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +32,7 @@ public class AccountController {
 	}
 
 	@PostMapping
-	public ResponseEntity<AccountResponseDTO> create(@RequestBody AccountRequestDTO accountRequestDTO) {
+	public ResponseEntity<AccountResponseDTO> create(@Valid @RequestBody AccountRequestDTO accountRequestDTO) {
 		Account account = accountService.create( accountMapper.toEntity( accountRequestDTO ) );
 
 		return ResponseEntity.status( HttpStatus.CREATED ).body( accountMapper.toDTO( account ) );

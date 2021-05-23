@@ -5,18 +5,18 @@ import static com.transaction.transactionsapi.mocks.AccountMock.getSavedAccount;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.transaction.transactionsapi.dtos.account.AccountRequestDTO;
 import com.transaction.transactionsapi.dtos.account.AccountResponseDTO;
 import com.transaction.transactionsapi.entities.Account;
 
-public class AccountMapperTest {
+class AccountMapperTest {
 
-	private AccountMapper mapper = new AccountMapper();
+	private final AccountMapper mapper = new AccountMapper();
 
 	@Test
-	public void givenValidRequestDTOWhenMappingToEntityThenReturnAccount() {
+	void givenValidRequestDTOWhenMappingToEntityThenReturnAccount() {
 		AccountRequestDTO requestDTO = getAccountRequestDTO();
 
 		Account entity = mapper.toEntity( requestDTO );
@@ -25,7 +25,7 @@ public class AccountMapperTest {
 	}
 
 	@Test
-	public void givenValidEntityWhenMappingToDTOThenReturnResponseDTO() {
+	void givenValidEntityWhenMappingToDTOThenReturnResponseDTO() {
 		Account entity = getSavedAccount();
 
 		AccountResponseDTO responseDTO = mapper.toDTO( entity );

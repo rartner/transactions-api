@@ -6,25 +6,25 @@ import static com.transaction.transactionsapi.mocks.AccountMock.getAccount;
 import static com.transaction.transactionsapi.mocks.AccountMock.getSavedAccount;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
 
 import java.util.Optional;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.transaction.transactionsapi.entities.Account;
 import com.transaction.transactionsapi.exceptions.AccountNotFoundException;
 import com.transaction.transactionsapi.exceptions.DocumentAlreadyUsedException;
 import com.transaction.transactionsapi.repositories.AccountRepository;
 
-@RunWith(MockitoJUnitRunner.class)
-public class AccountServiceTest {
+@ExtendWith(MockitoExtension.class)
+class AccountServiceTest {
 
 	@InjectMocks
 	private AccountService accountService;
@@ -32,7 +32,7 @@ public class AccountServiceTest {
 	private AccountRepository accountRepository;
 
 	@Test
-	public void givenValidDocumentWhenCreatingAccountThenCreateNewAccount() {
+	void givenValidDocumentWhenCreatingAccountThenCreateNewAccount() {
 		Account validAccount = getAccount();
 		Account savedAccount = getSavedAccount();
 
@@ -46,7 +46,7 @@ public class AccountServiceTest {
 	}
 
 	@Test
-	public void givenDocumentAlreadyInUseWhenCreatingAccountThenThrowException() {
+	void givenDocumentAlreadyInUseWhenCreatingAccountThenThrowException() {
 		Account account = getAccount();
 		doReturn( Optional.of( getSavedAccount() ) ).when( accountRepository ).findByDocumentNumber( DOCUMENT_NUMBER );
 
@@ -56,7 +56,7 @@ public class AccountServiceTest {
 	}
 
 	@Test
-	public void givenExistingIdWhenFindByIdThenReturnAccount() {
+	void givenExistingIdWhenFindByIdThenReturnAccount() {
 		doReturn( Optional.of( getSavedAccount() ) ).when( accountRepository ).findById( ACCOUNT_ID );
 
 		Account account = accountService.findById( ACCOUNT_ID );
@@ -66,7 +66,7 @@ public class AccountServiceTest {
 	}
 
 	@Test
-	public void givenNonexistentIdWhenFindByIdThenThrowNotFoundException() {
+	void givenNonexistentIdWhenFindByIdThenThrowNotFoundException() {
 		doReturn( Optional.empty() ).when( accountRepository ).findById( ACCOUNT_ID );
 
 		assertThrows( AccountNotFoundException.class, () -> {

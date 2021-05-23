@@ -1,23 +1,20 @@
 package com.transaction.transactionsapi.entities;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Data
+@Getter
 @Builder
 public class Account extends AuditableEntity {
 
@@ -26,7 +23,4 @@ public class Account extends AuditableEntity {
 	private Long id;
 
 	private String documentNumber;
-
-	@OneToMany(mappedBy = "account")
-	private List<Transaction> transactions;
 }

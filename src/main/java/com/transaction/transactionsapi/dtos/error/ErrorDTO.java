@@ -3,19 +3,19 @@ package com.transaction.transactionsapi.dtos.error;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-@Data
+@Getter
 @AllArgsConstructor
 public class ErrorDTO {
 
-	private Integer status;
-	private String message;
+	private final Integer status;
+	private final String message;
 
 	@JsonInclude(JsonInclude.Include.NON_NULL)
-	private List<String> errors;
+	private List<String> details;
 
 	public ErrorDTO(Integer status, String message) {
 		this.status = status;

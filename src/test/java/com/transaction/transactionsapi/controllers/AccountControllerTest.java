@@ -3,6 +3,7 @@ package com.transaction.transactionsapi.controllers;
 import static com.transaction.transactionsapi.mocks.AccountMock.DOCUMENT_NUMBER;
 import static com.transaction.transactionsapi.mocks.AccountMock.getAccountRequestDTO;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.matchesRegex;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -24,7 +26,7 @@ public class AccountControllerTest extends SpringControllerTest {
 	private static final String ACCOUNT_ALREADY_EXISTS_MESSAGE = "An account with this document number already exists";
 	private static final String BASE_PATH = "/accounts";
 	private static final String ACCOUNT_NOT_FOUND_MESSAGE = "Account not found for the given id";
-	private static final String INVALID_DATA_MESSAGE = "Your request body has some invalid data";
+	private static final String INVALID_DATA_MESSAGE = "Your request body contains invalid data";
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -46,7 +48,7 @@ public class AccountControllerTest extends SpringControllerTest {
 		mockMvc.perform( post( BASE_PATH ).contentType( MediaType.APPLICATION_JSON )
 				.content( new ObjectMapper().writeValueAsString( getAccountRequestDTO() ) ) )
 				.andExpect( status().isUnprocessableEntity() )
-				.andExpect( jsonPath( "$.status", is( 422 ) ) )
+				.andExpect( jsonPath( "$.status", is( HttpStatus.UNPROCESSABLE_ENTITY.value() ) ) )
 				.andExpect( jsonPath( "$.message", is( ACCOUNT_ALREADY_EXISTS_MESSAGE ) ) );
 	}
 
@@ -56,10 +58,10 @@ public class AccountControllerTest extends SpringControllerTest {
 		mockMvc.perform( post( BASE_PATH ).contentType( MediaType.APPLICATION_JSON )
 				.content( "{}" ) )
 				.andExpect( status().isBadRequest() )
-				.andExpect( jsonPath( "$.status", is( 400 ) ) )
+				.andExpect( jsonPath( "$.status", is( HttpStatus.BAD_REQUEST.value() ) ) )
 				.andExpect( jsonPath( "$.message", is( INVALID_DATA_MESSAGE ) ) )
-				.andExpect( jsonPath( "$.errors[0]", is( "Document number cannot be blank" ) ) )
-				.andExpect( jsonPath( "$.errors[1]", is( "Document number cannot be null" ) ) );
+				.andExpect( jsonPath( "$.details[0]", matchesRegex( "Document number cannot be (blank|null)" ) ) )
+				.andExpect( jsonPath( "$.details[1]", matchesRegex( "Document number cannot be (blank|null)" ) ) );
 	}
 
 	@Test
@@ -76,7 +78,7 @@ public class AccountControllerTest extends SpringControllerTest {
 	public void givenNonexistentIdWhenFindAccountByIdThenReturnNotFound() throws Exception {
 		mockMvc.perform( get( BASE_PATH + "/123" ) )
 				.andExpect( status().isNotFound() )
-				.andExpect( jsonPath( "$.status", is( 404 ) ) )
+				.andExpect( jsonPath( "$.status", is( HttpStatus.NOT_FOUND.value() ) ) )
 				.andExpect( jsonPath( "$.message", is( ACCOUNT_NOT_FOUND_MESSAGE ) ) );
 	}
 }

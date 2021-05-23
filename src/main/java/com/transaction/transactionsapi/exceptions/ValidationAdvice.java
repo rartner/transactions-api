@@ -17,7 +17,8 @@ import com.transaction.transactionsapi.dtos.error.ErrorDTO;
 @ControllerAdvice
 public class ValidationAdvice extends ResponseEntityExceptionHandler {
 
-	public static final HttpStatus STATUS = HttpStatus.BAD_REQUEST;
+	private static final HttpStatus STATUS = HttpStatus.BAD_REQUEST;
+	private static final String ARGUMENT_NOT_VALID_MESSAGE = "Your request body contains invalid data";
 
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
@@ -27,6 +28,6 @@ public class ValidationAdvice extends ResponseEntityExceptionHandler {
 				.collect( Collectors.toList() );
 
 		return ResponseEntity.status( STATUS )
-				.body( new ErrorDTO( STATUS.value(), "Your request body has some invalid data", errors ) );
+				.body( new ErrorDTO( STATUS.value(), ARGUMENT_NOT_VALID_MESSAGE, errors ) );
 	}
 }

@@ -60,8 +60,8 @@ public class AccountControllerTest extends SpringControllerTest {
 				.andExpect( status().isBadRequest() )
 				.andExpect( jsonPath( "$.status", is( HttpStatus.BAD_REQUEST.value() ) ) )
 				.andExpect( jsonPath( "$.message", is( INVALID_DATA_MESSAGE ) ) )
-				.andExpect( jsonPath( "$.details[0]", matchesRegex( "Document number cannot be (blank|null)" ) ) )
-				.andExpect( jsonPath( "$.details[1]", matchesRegex( "Document number cannot be (blank|null)" ) ) );
+				.andExpect( jsonPath( "$.details[0]", matchesRegex( "document_number cannot be (blank|null)" ) ) )
+				.andExpect( jsonPath( "$.details[1]", matchesRegex( "document_number cannot be (blank|null)" ) ) );
 	}
 
 	@Test

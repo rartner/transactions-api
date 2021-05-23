@@ -20,7 +20,7 @@ import com.transaction.transactionsapi.mappers.AccountMapper;
 import com.transaction.transactionsapi.services.AccountService;
 
 @RestController
-@RequestMapping("accounts")
+@RequestMapping("/accounts")
 public class AccountController {
 
 	private final AccountService accountService;
@@ -39,7 +39,7 @@ public class AccountController {
 		return ResponseEntity.status( HttpStatus.CREATED ).body( accountMapper.toDTO( account ) );
 	}
 
-	@GetMapping("{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<AccountResponseDTO> findById(@PathVariable("id") Long id) {
 		return ResponseEntity.ok( accountMapper.toDTO( accountService.findById( id ) ) );
 	}

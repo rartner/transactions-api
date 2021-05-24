@@ -9,13 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 
-public class StatusControllerTest extends SpringControllerTest {
+class StatusControllerTest extends SpringControllerTest {
 
 	@Autowired
 	private MockMvc mock;
 
 	@Test
-	public void givenStatusRequestWhenServerIsRunningThenReturnOK() throws Exception {
+	void givenStatusRequestWhenServerIsRunningThenReturnOK() throws Exception {
 		mock.perform( get( "/status" ) )
 				.andExpect( status().isOk() )
 				.andExpect( content().string( is( "OK" ) ));

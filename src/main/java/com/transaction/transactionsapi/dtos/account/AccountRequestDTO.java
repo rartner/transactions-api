@@ -18,8 +18,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Builder
 public class AccountRequestDTO {
 
-	@NotNull(message = "Document number cannot be null")
-	@NotBlank(message = "Document number cannot be blank")
+	@NotNull(message = "document_number cannot be null")
+	@NotBlank(message = "document_number cannot be blank")
 	@JsonProperty("document_number")
 	private String documentNumber;
 }

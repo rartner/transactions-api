@@ -24,4 +24,11 @@ public class ExceptionAdvice {
 	protected ErrorDTO handleDocumentAlreadyUsedException(DocumentAlreadyUsedException exception) {
 		return new ErrorDTO( HttpStatus.UNPROCESSABLE_ENTITY.value(), exception.getMessage() );
 	}
+
+	@ExceptionHandler(InvalidOperationTypeException.class)
+	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+	@ResponseBody
+	protected ErrorDTO handleInvalidOperationTypeException(InvalidOperationTypeException exception) {
+		return new ErrorDTO( HttpStatus.UNPROCESSABLE_ENTITY.value(), exception.getMessage() );
+	}
 }

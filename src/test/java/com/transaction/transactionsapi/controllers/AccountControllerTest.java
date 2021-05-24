@@ -9,10 +9,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,11 +17,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AccountControllerTest extends SpringControllerTest {
 
-	private static final String ACCOUNT_ALREADY_EXISTS_MESSAGE = "An account with this document number already exists";
 	private static final String BASE_PATH = "/accounts";
+	private static final String ACCOUNT_ALREADY_EXISTS_MESSAGE = "An account with this document number already exists";
 	private static final String ACCOUNT_NOT_FOUND_MESSAGE = "Account not found for the given id";
 	private static final String INVALID_DATA_MESSAGE = "Your request body contains invalid data";
 
@@ -32,7 +28,6 @@ public class AccountControllerTest extends SpringControllerTest {
 	private MockMvc mockMvc;
 
 	@Test
-	@Order(1)
 	public void givenValidRequestWhenCreatingAccountThenSuccess() throws Exception {
 		mockMvc.perform( post( BASE_PATH )
 				.contentType( MediaType.APPLICATION_JSON )
@@ -43,8 +38,9 @@ public class AccountControllerTest extends SpringControllerTest {
 	}
 
 	@Test
-	@Order(2)
 	public void givenAlreadyRegisteredDocumentWhenCreatingAccountThenReturnUnprocessableEntity() throws Exception {
+		createAccount();
+
 		mockMvc.perform( post( BASE_PATH ).contentType( MediaType.APPLICATION_JSON )
 				.content( new ObjectMapper().writeValueAsString( getAccountRequestDTO() ) ) )
 				.andExpect( status().isUnprocessableEntity() )
@@ -53,7 +49,6 @@ public class AccountControllerTest extends SpringControllerTest {
 	}
 
 	@Test
-	@Order(3)
 	public void givenInvalidDTOWhenCreatingAccountThenReturnErrorWithMessages() throws Exception {
 		mockMvc.perform( post( BASE_PATH ).contentType( MediaType.APPLICATION_JSON )
 				.content( "{}" ) )
@@ -65,8 +60,9 @@ public class AccountControllerTest extends SpringControllerTest {
 	}
 
 	@Test
-	@Order(4)
 	public void givenExistingIdWhenFindAccountByIdThenReturnAccount() throws Exception {
+		createAccount();
+
 		mockMvc.perform( get( BASE_PATH + "/1" ) )
 				.andExpect( status().isOk() )
 				.andExpect( jsonPath( "$.account_id", is( 1 ) ) )
@@ -74,7 +70,6 @@ public class AccountControllerTest extends SpringControllerTest {
 	}
 
 	@Test
-	@Order(5)
 	public void givenNonexistentIdWhenFindAccountByIdThenReturnNotFound() throws Exception {
 		mockMvc.perform( get( BASE_PATH + "/123" ) )
 				.andExpect( status().isNotFound() )

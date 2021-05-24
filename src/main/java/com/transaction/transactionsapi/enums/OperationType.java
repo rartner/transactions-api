@@ -1,5 +1,7 @@
 package com.transaction.transactionsapi.enums;
 
+import java.util.Arrays;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -18,16 +20,10 @@ public enum OperationType {
 	private final String description;
 
 	public static OperationType fromId(Long id) {
-		if (id == 1)
-			return PURCHASE_CASH;
-		if (id == 2)
-			return PURCHASE_INSTALLMENTS;
-		if (id == 3)
-			return WITHDRAW;
-		if (id == 4)
-			return PAYMENT;
-
-		throw new InvalidOperationTypeException();
+		return Arrays.stream( OperationType.values() )
+				.filter( operationType -> operationType.getId().equals( id ) )
+				.findFirst()
+				.orElseThrow( InvalidOperationTypeException::new );
 	}
 
 	public Boolean amountShouldBeNegative() {

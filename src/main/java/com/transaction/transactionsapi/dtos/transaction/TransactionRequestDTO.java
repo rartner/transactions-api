@@ -26,7 +26,7 @@ public class TransactionRequestDTO {
 	private Long accountId;
 
 	@NotNull(message = "operation_type_id cannot be null")
-	@Positive(message = "amount must be positive")
+	@Positive(message = "operation_type_id must be positive")
 	@JsonProperty("operation_type_id")
 	private Long operationTypeId;
 

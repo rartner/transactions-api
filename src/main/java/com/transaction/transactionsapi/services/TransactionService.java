@@ -34,6 +34,6 @@ public class TransactionService {
 	}
 
 	private boolean amountShouldBeNegative(Transaction transaction) {
-		return transaction.getOperationType().amountShouldBeNegative();
+		return transaction.getOperationType().isNegative();
 	}
 }

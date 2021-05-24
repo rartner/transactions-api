@@ -11,6 +11,8 @@ import lombok.Setter;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -18,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Builder
 public class AccountRequestDTO {
 
+	@ApiModelProperty(value = "The customer document number", required = true)
 	@NotNull(message = "document_number cannot be null")
 	@NotBlank(message = "document_number cannot be blank")
 	@JsonProperty("document_number")

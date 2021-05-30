@@ -8,17 +8,19 @@ This project consists of an API that is able to manage financial transactions fo
 
 ## Execute
 
-Start the project without running the tests:
+Start the application without running the tests:
 ```shell
 make start
 ```
+The application will be running at http://localhost:8080/. If you want to know how to use it, make sure to visit the [usage](#usage) session.
 
-Run tests
+Run tests locally
 ```shell
 make test
 ```
+Note that you'll need to set up all the [requirements](#requirements) to run the tests.
 
-## Docs
+## Usage
 
-After starting the application, you can try it out at http://localhost:8080/swagger-ui.html. 
-Also, you can read a non-interactive version [here](API_DOCS.md). 
+You can read a non-interactive documentation with some examples [here](API_DOCS.md).
+Also, if you start the application, you can try it out at http://localhost:8080/swagger-ui.html.

@@ -12,7 +12,13 @@ Create new account
 | Name      | Description | Example | Required                                                                                      |
 | ----------|-------------|---------|----------------------------------------------------------------------- |
 | document_number       | Document number of the Account owner | 12345 | true
-|
+
+
+#### Request
+```
+curl -X POST http://localhost:8080/accounts -H 'Content-Type: application/json' -d '{ "document_number": "1234562213" }'
+```
+
 
 #### Response
 
@@ -20,7 +26,7 @@ Create new account
 ```json
 {
 	"account_id": 1,
-	"document_number": "12345"
+	"document_number": "1234562213"
 }
 ```
 `HTTP 400`
@@ -49,7 +55,12 @@ Returns account information
 | Name      | Description | Example | Required                                                                                     |
 | ----------|-------------|---------|------------------------------------------------------------------------------ |
 | accountId       | Customer account id | 12 | true
-|
+
+
+#### Request
+```
+curl -X GET http://localhost:8080/accounts/1
+```
 
 #### Response
 
@@ -83,7 +94,10 @@ Create transaction for account
 | operation_type_id       | The operation type id. Values: <br> 1: PURCHASE_CASH. <br>2: PURCHASE_INSTALLMENTS. <br>3: WITHDRAW. <br>4: PAYMENTS | 1 | true |
 | amount       | Transaction value. Must be positive | 123.45 | true |
 
-
+#### Request
+```
+curl -X POST http://localhost:8080/transactions -H 'Content-Type: application/json' -d '{ "account_id": 1, "operation_type_id": 4, "amount": 123.45 }'
+```
 
 ##### Response
 

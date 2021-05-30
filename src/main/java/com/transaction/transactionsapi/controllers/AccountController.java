@@ -19,6 +19,10 @@ import com.transaction.transactionsapi.entities.Account;
 import com.transaction.transactionsapi.mappers.AccountMapper;
 import com.transaction.transactionsapi.services.AccountService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "Accounts", tags = "Accounts")
 @RestController
 @RequestMapping("/accounts")
 public class AccountController {
@@ -32,6 +36,7 @@ public class AccountController {
 		this.accountMapper = mapper;
 	}
 
+	@ApiOperation(value = "Create an account")
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AccountResponseDTO> create(@Valid @RequestBody AccountRequestDTO accountRequestDTO) {
 		Account account = accountService.create( accountMapper.toEntity( accountRequestDTO ) );
@@ -39,6 +44,7 @@ public class AccountController {
 		return ResponseEntity.status( HttpStatus.CREATED ).body( accountMapper.toDTO( account ) );
 	}
 
+	@ApiOperation(value = "Get an account by id")
 	@GetMapping("/{id}")
 	public ResponseEntity<AccountResponseDTO> findById(@PathVariable("id") Long id) {
 		return ResponseEntity.ok( accountMapper.toDTO( accountService.findById( id ) ) );

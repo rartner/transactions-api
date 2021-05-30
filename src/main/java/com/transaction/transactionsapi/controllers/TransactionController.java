@@ -15,6 +15,10 @@ import com.transaction.transactionsapi.dtos.transaction.TransactionRequestDTO;
 import com.transaction.transactionsapi.mappers.TransactionMapper;
 import com.transaction.transactionsapi.services.TransactionService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "Transactions", tags = "Transactions")
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {
@@ -28,6 +32,7 @@ public class TransactionController {
 		this.transactionMapper = transactionMapper;
 	}
 
+	@ApiOperation(value = "Create a transaction")
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity create(@Valid @RequestBody TransactionRequestDTO transactionRequestDTO) {
 		transactionService.create( transactionMapper.toEntity( transactionRequestDTO ) );

@@ -1,0 +1,28 @@
+version: '3.2'
+
+services:
+  app:
+    container_name: transactions-api
+    build:
+      context: .
+      dockerfile: Dockerfile.mvn
+    ports:
+      - "8080:8080"
+    expose:
+      - 8080
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/transactions
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+  db:
+    container_name: "transactions-db"
+    image: "postgres:11"
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: transactions
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres

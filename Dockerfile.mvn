@@ -1,0 +1,11 @@
+FROM maven:3.6-openjdk-11-slim AS MAVEN_BUILD
+
+COPY src /build/app/src
+COPY pom.xml /build/app
+
+RUN mvn -f /build/app/pom.xml clean package -DskipTests
+
+FROM adoptopenjdk/openjdk11:alpine
+COPY --from=MAVEN_BUILD /build/app/target/*.jar /app.jar
+
+ENTRYPOINT ["java","-jar","/app.jar"]

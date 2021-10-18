@@ -17,10 +17,10 @@ type TransactionsController interface {
 }
 
 type Transactions struct {
-	transactionService *services.TransactionService
+	transactionService services.TransactionService
 }
 
-func NewTransactionsController(serv *services.TransactionService) *Transactions {
+func NewTransactionsController(serv services.TransactionService) *Transactions {
 	return &Transactions{transactionService: serv}
 }
 

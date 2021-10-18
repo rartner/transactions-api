@@ -1,5 +1,7 @@
 package domain
 
+import "errors"
+
 type OperationTypeEnum int
 
 const (
@@ -35,5 +37,20 @@ func (t *CreateTransactionDTO) ToEntity() Transaction {
 		AccountID:     t.AccountID,
 		OperationType: t.OperationTypeID,
 		Amount:        t.Amount,
+	}
+}
+
+func IsNegative(op OperationTypeEnum) (bool, error) {
+	switch op {
+	case PurchaseCash:
+		return true, nil
+	case PurchaseInstallments:
+		return true, nil
+	case Withdraw:
+		return true, nil
+	case Payments:
+		return false, nil
+	default:
+		return false, errors.New("invalid operation type")
 	}
 }

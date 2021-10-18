@@ -21,10 +21,10 @@ type AccountsController interface {
 }
 
 type Accounts struct {
-	accountService services.AccountServiceI
+	accountService services.AccountService
 }
 
-func NewAccountsController(serv services.AccountServiceI) *Accounts {
+func NewAccountsController(serv services.AccountService) *Accounts {
 	return &Accounts{accountService: serv}
 }
 

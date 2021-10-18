@@ -56,8 +56,7 @@ func (r AccountRepository) FindByID(ID int64) (domain.Account, error) {
 	defer stmt.Close()
 
 	acc := domain.Account{}
-	err = stmt.QueryRow(ID).Scan(&acc.ID, &acc.DocumentNumber)
-	if err != nil {
+	if err := stmt.QueryRow(ID).Scan(&acc.ID, &acc.DocumentNumber); err != nil {
 		return domain.Account{}, err
 	}
 

@@ -20,7 +20,7 @@ type Transactions struct {
 	transactionService services.TransactionService
 }
 
-func NewTransactionsController(serv services.TransactionService) *Transactions {
+func NewTransactionsController(serv services.TransactionService) TransactionsController {
 	return &Transactions{transactionService: serv}
 }
 

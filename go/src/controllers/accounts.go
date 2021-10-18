@@ -24,7 +24,7 @@ type Accounts struct {
 	accountService services.AccountService
 }
 
-func NewAccountsController(serv services.AccountService) *Accounts {
+func NewAccountsController(serv services.AccountService) AccountsController {
 	return &Accounts{accountService: serv}
 }
 
